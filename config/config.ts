@@ -2,9 +2,7 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-
 const { REACT_APP_ENV } = process.env;
-
 export default defineConfig({
   hash: true,
   antd: {},
@@ -73,10 +71,16 @@ export default defineConfig({
               ],
             },
             {
-              name: 'list.table-list',
+              name: '单选题库',
               icon: 'table',
               path: '/list',
               component: './ListTableList',
+            },
+            {
+              name: '多选题库',
+              icon: 'smile',
+              path: '/singletests',
+              component: './SingleTests',
             },
             {
               component: './404',
