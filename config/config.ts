@@ -71,16 +71,16 @@ export default defineConfig({
               ],
             },
             {
-              name: '单选题库',
-              icon: 'table',
-              path: '/list',
-              component: './ListTableList',
-            },
-            {
-              name: '多选题库',
+              name: 'singleTest',
               icon: 'smile',
               path: '/singletests',
               component: './SingleTests',
+            },
+            {
+              name: 'multipleTests',
+              icon: 'table',
+              path: '/list',
+              component: './ListTableList',
             },
             {
               component: './404',

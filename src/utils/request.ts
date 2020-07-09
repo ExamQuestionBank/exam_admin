@@ -51,6 +51,25 @@ const errorHandler = (error: { response: Response }): Response => {
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+  headers: getHeaders()
 });
+
+
+function getHeaders () {
+  const header = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  }
+  const token = localStorage.getItem('token');
+  if (token) {
+    return {
+      ...header,
+      'Authorization': `Bearer ${token}`
+    }
+  }
+  return header
+}
+
+
 
 export default request;
