@@ -7,7 +7,7 @@ import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { TableListItem } from './data.d';
-import { queryRule, updateRule, addRule, removeRule } from './service';
+import { getSingleTests, updateRule, addRule, removeRule } from './service';
 
 /**
  * 添加节点
@@ -189,7 +189,7 @@ const TableList: React.FC<{}> = () => {
             </span>
           </div>
         )}
-        request={(params, sorter, filter) => queryRule({ ...params, sorter, filter })}
+        request={(params, sorter, filter) => getSingleTests({ ...params, sorter, filter })}
         columns={columns}
         rowSelection={{}}
       />

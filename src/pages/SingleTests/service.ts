@@ -1,11 +1,20 @@
 import request from '@/utils/request';
 import { TableListParams } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
+export async function getSingleTests(params?: TableListParams) {
   return request('/api/singleTests/getSingleTests', {
     method: 'POST',
     data: {
       params,
+    }
+  });
+}
+
+export async function saveOrUpdateSingleTest(params?: any) {
+  return request('/api/singleTests/saveOrUpdate', {
+    method: 'POST',
+    data: {
+      ...params,
     }
   });
 }

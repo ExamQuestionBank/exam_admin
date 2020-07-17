@@ -21,6 +21,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
       const { dispatch } = this.props;
 
       if (dispatch) {
+        localStorage.setItem('token', '');
         dispatch({
           type: 'login/logout',
         });
