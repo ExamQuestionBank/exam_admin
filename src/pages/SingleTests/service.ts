@@ -19,12 +19,11 @@ export async function saveOrUpdateSingleTest(params?: any) {
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
+export async function deleteSingleTests( ids: any) {
+  return request('/api/singleTests/deleteTests', {
     method: 'POST',
     data: {
-      ...params,
-      method: 'delete',
+      ids
     },
   });
 }

@@ -4,7 +4,7 @@ import React, { useState, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { TableListItem } from './data.d';
-import { getSingleTests } from './service';
+import { getSingleTests,deleteSingleTests } from './service';
 import CreateUpdateSlide from './components/CreateUpdateSlide';
 
 
@@ -16,18 +16,20 @@ import CreateUpdateSlide from './components/CreateUpdateSlide';
 const handleRemove = async (selectedRows: TableListItem[]) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
+  let result = false
   try {
-    // await removeRule({
-    //   key: selectedRows.map((row) => row.id),
-    // });
-    hide();
-    message.success('删除成功，即将刷新');
-    return true;
+    const ids = selectedRows.map((row) => row.id)
+    const res = await deleteSingleTests(ids);
+    if (res.status !== 'error') {
+      hide();
+      message.success('删除成功，即将刷新');
+      result =  true;
+    }
   } catch (error) {
     hide();
     message.error('删除失败，请重试');
-    return false;
   }
+  return result
 };
 
 
@@ -67,7 +69,14 @@ const TableList: React.FC<{}> = () => {
             编辑
           </a>
           <Divider type="vertical" />
-          <a href="">删除</a>
+          <a onClick={async () => {
+            const res = await handleRemove([record]);
+            if (res){
+              if (actionRef.current) {
+                actionRef.current.reload();
+              }
+            }
+          } }>删除</a>
         </>
       ),
     },
@@ -92,14 +101,14 @@ const TableList: React.FC<{}> = () => {
                 <Menu
                   onClick={async (e) => {
                     if (e.key === 'remove') {
-                      await handleRemove(selectedRows);
-                      action.reload();
+                      const res = await handleRemove(selectedRows);
+                      if (res) {
+                        action.reload();
+                      }
                     }
                   }}
-                  selectedKeys={[]}
                 >
                   <Menu.Item key="remove">批量删除</Menu.Item>
-                  <Menu.Item key="approval">批量审批</Menu.Item>
                 </Menu>
               }
             >
@@ -109,22 +118,20 @@ const TableList: React.FC<{}> = () => {
             </Dropdown>
           ),
         ]}
-        tableAlertRender={({ selectedRowKeys }) => (
-          <div>
-            已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项&nbsp;&nbsp;
-          </div>
-        )}
+        tableAlertRender={() => (false)}
         request={(params, sorter, filter) => getSingleTests({ ...params, sorter, filter })}
         columns={columns}
         rowSelection={{}}
       />
       {currentRecord && <CreateUpdateSlide
         visible={slideVisible}
-        onClose={() => {
+        onClose={(update:boolean) => {
           setCreateUpdateSlideVisible(false)
           setCurrentRecord(null)
           if (actionRef.current) {
-            actionRef.current.reload();
+            if (update) {
+             actionRef.current.reload();
+            }
           }
         }}
         record={currentRecord}

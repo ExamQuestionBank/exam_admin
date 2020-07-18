@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Drawer, Form, Input,Button} from 'antd'
+import {Drawer, Form, Input,Button, message} from 'antd'
 import { TableListItem } from '../data.d';
 import { saveOrUpdateSingleTest } from '../service';
 
@@ -19,7 +19,7 @@ export interface FormValueType extends Partial<TableListItem> {
 
 export interface CreateUpdateSlideProps {
   visible: boolean;
-  onClose: () => void;
+  onClose: (update:boolean) => void;
   record: Partial<TableListItem>;
 }
 
@@ -59,7 +59,7 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
   } = props;
   const [form] = Form.useForm();
 
-  const onCanle = () => onClose()
+  const onCanle = () => onClose(false)
 
   const onConfrim = async () => {
     // onClose()
@@ -71,10 +71,10 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
     try {
       const res = await saveOrUpdateSingleTest(saveData)
       if (res) {
-        onClose()
+        onClose(true)
       }
     } catch (err) {
-      console.log(err)
+      message.error(err);
     }
 
   }
@@ -140,7 +140,7 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
         placement="right"
         width="600"
         closable={false}
-        onClose={onClose}
+        onClose={() => {onClose(false)}}
         visible={visible}
         footer={renderFooter()}
       >

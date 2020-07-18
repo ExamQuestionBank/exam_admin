@@ -33,7 +33,6 @@ const Model: LoginModelType = {
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
-      localStorage.setItem('token',response.data.access_token)
       localStorage.setItem('token', response.data.access_token);
       yield put({
         type: 'changeLoginStatus',
@@ -56,7 +55,9 @@ const Model: LoginModelType = {
             return;
           }
         }
-        history.replace(redirect || '/');
+        setTimeout(() => {
+          window.location.href = redirect || '/';
+        },200) 
       }
     },
 
