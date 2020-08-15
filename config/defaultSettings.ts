@@ -16,7 +16,7 @@ const proSettings: DefaultSettings = {
   menu: {
     locale: true,
   },
-  title: 'Exam Admin',
+  title: '试题君',
   pwa: false,
   iconfontUrl: '',
 };

@@ -50,10 +50,10 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>Exam Admin</span>
+                <span className={styles.title}>试题君</span>
               </Link>
             </div>
-            <div className={styles.desc}>Exam Admin 试题管理平台</div>
+            <div className={styles.desc}>我是试题君</div>
           </div>
           {children}
         </div>

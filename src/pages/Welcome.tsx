@@ -11,7 +11,7 @@ export default (): React.ReactNode => (
         marginTop: 150,
         marginBottom: 150,
         fontSize: '60px',
-      }}>Welcome Exam Admin</h1>
+      }}>Welcome 试题君</h1>
     </Card>
   </PageHeaderWrapper>
 );
