@@ -10,6 +10,7 @@ export interface TableListItem {
   answerC?: string,
   answerD?: string,
   answer?: string,
+  answerAnalysis?: string,
 }
 
 export interface TableListPagination {

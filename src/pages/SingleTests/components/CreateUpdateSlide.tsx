@@ -15,6 +15,7 @@ export interface FormValueType extends Partial<TableListItem> {
   answerC?: string,
   answerD?: string,
   answer?: string,
+  answerAnalysis?: string,
 }
 
 export interface CreateUpdateSlideProps {
@@ -52,6 +53,7 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
     answerC: props.record.answerC,
     answerD: props.record.answerD,
     answer: props.record.answer,
+    answerAnalysis: props.record.answerAnalysis,
   });
   const {
     visible,
@@ -82,35 +84,38 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
   const renderContent = () => {
     return (
       <>
-        <FormItem name="testNo" label="试题编号">
+        <FormItem name="testNo" label="试题编号" rules={[{ required: true, message: '请输入' }]}>
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem name="testYear" label="试题年份">
+        <FormItem name="testYear" label="试题年份" rules={[{ required: true, message: '请输入' }]}>
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem name="subject" label="科目">
+        <FormItem name="subject" label="科目" rules={[{ required: true, message: '请输入' }]}>
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem name="testFrom" label="试题出处">
+        <FormItem name="testFrom" label="试题出处" rules={[{ required: true, message: '请输入' }]}>
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem name="question" label="题目">
+        <FormItem name="question" label="题目" rules={[{ required: true, message: '请输入' }]}>
           <TextArea  placeholder="请输入" />
         </FormItem>
-        <FormItem name="answerA" label="A">
+        <FormItem name="answerA" label="A" rules={[{ required: true, message: '请输入' }]}>
           <TextArea  placeholder="请输入" />
         </FormItem>
-        <FormItem name="answerB" label="B">
+        <FormItem name="answerB" label="B" rules={[{ required: true, message: '请输入' }]}>
           <TextArea  placeholder="请输入" />
         </FormItem>
-        <FormItem name="answerC" label="C">
+        <FormItem name="answerC" label="C" rules={[{ required: true, message: '请输入' }]}>
           <TextArea  placeholder="请输入" />
         </FormItem>
-        <FormItem name="answerD" label="D">
+        <FormItem name="answerD" label="D" rules={[{ required: true, message: '请输入' }]}>
           <TextArea  placeholder="请输入" />
         </FormItem>
-        <FormItem name="answer" label="答案">
+        <FormItem name="answer" label="答案" rules={[{ required: true, message: '请输入' }]}>
           <Input  placeholder="请输入A,B,C,D" />
+        </FormItem>
+        <FormItem name="answerAnalysis" label="解析">
+          <TextArea  placeholder="请输入答案解析" />
         </FormItem>
       </>
     )
@@ -157,7 +162,8 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
             answerB: formVals.answerB,
             answerC: formVals.answerC,
             answerD: formVals.answerD,
-            answer: formVals.answer
+            answer: formVals.answer,
+            answerAnalysis: formVals.answerAnalysis,
           }}
       >
         {renderContent()}
