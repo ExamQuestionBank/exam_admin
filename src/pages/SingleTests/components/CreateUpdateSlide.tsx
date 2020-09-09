@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import {Drawer, Form, Input,Button, message} from 'antd'
+import {Drawer, Form, Input,Button,Select,message} from 'antd'
 import { TableListItem } from '../data.d';
 import { saveOrUpdateSingleTest } from '../service';
 
 
 export interface FormValueType extends Partial<TableListItem> {
-  testNo?: string,
+  section?: string,
   subject?: string,
   testFrom?: string,
   testYear?: string,
@@ -43,7 +43,7 @@ const formLayout = {
 const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
   
   const [formVals] = useState<FormValueType>({
-    testNo: props.record.testNo,
+    section: props.record.section,
     subject: props.record.subject,
     testFrom:  props.record.testFrom,
     testYear: props.record.testYear,
@@ -72,8 +72,11 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
     }
     try {
       const res = await saveOrUpdateSingleTest(saveData)
-      if (res) {
+      if (res && !res.errors) {
         onClose(true)
+      } else {
+        // console.log(JSON.parse(res.errors))
+        message.error(res.name);
       }
     } catch (err) {
       message.error(err);
@@ -84,14 +87,25 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
   const renderContent = () => {
     return (
       <>
-        <FormItem name="testNo" label="试题编号" rules={[{ required: true, message: '请输入' }]}>
-          <Input placeholder="请输入" />
-        </FormItem>
+        
         <FormItem name="testYear" label="试题年份" rules={[{ required: true, message: '请输入' }]}>
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem name="subject" label="科目" rules={[{ required: true, message: '请输入' }]}>
-          <Input placeholder="请输入" />
+        <FormItem name="section" label="试题板块" rules={[{ required: true, message: '请选择' }]}>
+          <Select>
+              <Select.Option value="现代汉语">现代汉语</Select.Option>
+              <Select.Option value="教育学引论">教育学引论</Select.Option>
+              <Select.Option value="古代汉语">古代汉语</Select.Option>
+              <Select.Option value="案例分析">案例分析</Select.Option>
+              <Select.Option value="跨文化交际">跨文化交际</Select.Option>
+              <Select.Option value="中外文化">中外文化</Select.Option>
+            </Select>
+        </FormItem>
+        <FormItem name="subject" label="科目" rules={[{ required: true, message: '请选择' }]}>
+          <Select>
+            <Select.Option value="445汉语国际教育基础">445汉语国际教育基础</Select.Option>
+            <Select.Option value="354汉语基础">354汉语基础</Select.Option>
+          </Select>
         </FormItem>
         <FormItem name="testFrom" label="试题出处" rules={[{ required: true, message: '请输入' }]}>
           <Input placeholder="请输入" />
@@ -153,7 +167,7 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
           {...formLayout}
           form={form}
           initialValues={{
-            testNo: formVals.testNo,
+            section: formVals.section,
             subject: formVals.subject,
             testYear: formVals.testYear,
             testFrom: formVals.testFrom,

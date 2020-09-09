@@ -40,7 +40,11 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '试题编号',
-      dataIndex: 'testNo',
+      dataIndex: 'id',
+    },
+    {
+      title: '试题板块',
+      dataIndex: 'section',
     },
     {
       title: '考试科目',

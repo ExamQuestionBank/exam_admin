@@ -1,6 +1,6 @@
 export interface TableListItem {
   id?:number,
-  testNo?: string,
+  section?: string,
   subject?: string,
   testYear?: string,
   testFrom?: string,
