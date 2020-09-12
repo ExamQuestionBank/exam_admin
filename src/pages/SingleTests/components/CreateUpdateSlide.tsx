@@ -5,6 +5,7 @@ import { saveOrUpdateSingleTest } from '../service';
 
 
 export interface FormValueType extends Partial<TableListItem> {
+  checked?: number,
   section?: string,
   subject?: string,
   testFrom?: string,
@@ -53,7 +54,8 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
     answerC: props.record.answerC,
     answerD: props.record.answerD,
     answer: props.record.answer,
-    answerAnalysis: props.record.answerAnalysis,
+    answerAnalysis: props.record.answerAnalysis ? props.record.answerAnalysis : '',
+    checked:props.record.checked ? props.record.checked : 0
   });
   const {
     visible,
@@ -66,6 +68,7 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
   const onConfrim = async () => {
     // onClose()
     const fieldsValue = await form.validateFields();
+    fieldsValue.checked = Number(fieldsValue.checked.value)
     const saveData = {
       ...props.record,
       ...fieldsValue,
@@ -87,7 +90,6 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
   const renderContent = () => {
     return (
       <>
-        
         <FormItem name="testYear" label="试题年份" rules={[{ required: true, message: '请输入' }]}>
           <Input placeholder="请输入" />
         </FormItem>
@@ -130,6 +132,12 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
         </FormItem>
         <FormItem name="answerAnalysis" label="解析">
           <TextArea  placeholder="请输入答案解析" />
+        </FormItem>
+        <FormItem name="checked" label="校对状态">
+          < Select labelInValue>
+            <Select.Option value="1">通过</Select.Option>
+            <Select.Option value="0">待定</Select.Option>
+          </Select>
         </FormItem>
       </>
     )
@@ -177,7 +185,8 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
             answerC: formVals.answerC,
             answerD: formVals.answerD,
             answer: formVals.answer,
-            answerAnalysis: formVals.answerAnalysis,
+            answerAnalysis: formVals.answerAnalysis ? formVals.answerAnalysis : '',
+            checked:formVals.checked ? {value: 1, label: '通过'} : {value: 0, label: '待定'}
           }}
       >
         {renderContent()}

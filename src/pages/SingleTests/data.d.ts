@@ -11,6 +11,7 @@ export interface TableListItem {
   answerD?: string,
   answer?: string,
   answerAnalysis?: string,
+  checked?:number,
 }
 
 export interface TableListPagination {

@@ -1,5 +1,5 @@
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Divider, Dropdown, Menu, message } from 'antd';
+import { Button, Divider, Dropdown, Menu, message,Tag } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -41,6 +41,13 @@ const TableList: React.FC<{}> = () => {
     {
       title: '试题编号',
       dataIndex: 'id',
+    },
+    {
+      title: '校对状态',
+      dataIndex: 'checked',
+      render: tag => (
+        tag === 1 ? <Tag color="success">通过</Tag>:<Tag color="warning">待定</Tag>
+      ),
     },
     {
       title: '试题板块',
