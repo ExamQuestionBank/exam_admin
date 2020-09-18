@@ -81,7 +81,7 @@ export default defineConfig({
               name: 'multipleTests',
               icon: 'table',
               path: '/list',
-              component: './ListTableList',
+              component: './MultipleTests',
             },
             {
               component: './404',

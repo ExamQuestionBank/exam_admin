@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Drawer, Form, Input,Button,Select,message} from 'antd'
 import { TableListItem } from '../data.d';
-import { saveOrUpdateSingleTest } from '../service';
+import { saveOrUpdateMultipleTest } from '../service';
 
 
 export interface FormValueType extends Partial<TableListItem> {
@@ -55,7 +55,7 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
     answerD: props.record.answerD,
     answer: props.record.answer,
     answerAnalysis: props.record.answerAnalysis ? props.record.answerAnalysis : '',
-    checked:props.record.checked ? props.record.checked : 0
+    checked:props.record.checked ? props.record.checked : 0,
   });
   const {
     visible,
@@ -75,7 +75,7 @@ const CreateUpdateSlide: React.FC<CreateUpdateSlideProps> = (props) => {
       testNo:props.record.id,
     }
     try {
-      const res = await saveOrUpdateSingleTest(saveData)
+      const res = await saveOrUpdateMultipleTest(saveData)
       if (res && !res.errors) {
         onClose(true)
       } else {

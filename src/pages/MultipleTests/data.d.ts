@@ -1,16 +1,18 @@
 export interface TableListItem {
-  key: number;
-  disabled?: boolean;
-  href: string;
-  avatar: string;
-  name: string;
-  owner: string;
-  desc: string;
-  callNo: number;
-  status: number;
-  updatedAt: Date;
-  createdAt: Date;
-  progress: number;
+  id?:number,
+  section?: string,
+  subject?: string,
+  testYear?: string,
+  testFrom?: string,
+  question?: string,
+  answerA?: string,
+  answerB?: string,
+  answerC?: string,
+  answerD?: string,
+  answer?: string,
+  answerAnalysis?: string,
+  checked?:number,
+  testNo?:number,
 }
 
 export interface TableListPagination {
