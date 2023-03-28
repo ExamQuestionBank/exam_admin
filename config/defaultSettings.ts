@@ -16,7 +16,7 @@ const proSettings: DefaultSettings = {
   menu: {
     locale: true,
   },
-  title: '试题君',
+  title: '刷题叭',
   pwa: false,
   iconfontUrl: '',
 };
